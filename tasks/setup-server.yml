@@ -1,0 +1,29 @@
+- name: "Nginx | Remove default config"
+  file:
+    path: "/etc/nginx/nginx.conf"
+    state: absent
+- name: Nginx | Default config
+  template:
+    src: nginx.conf.j2
+    dest: "/etc/nginx/nginx.conf"
+- name: Nginx | Default vhost
+  template:
+    src: server/default.j2
+    dest: "/etc/nginx/sites-enabled/default"
+- name: "Nginx | Pre Vhost {{ domain }}"
+  template:
+    src: server/pre-vhost.j2
+    dest: "/etc/nginx/sites-enabled/{{ domain }}"
+- name: "Nginx | Restart"
+  service:
+    name: nginx
+    state: restarted
+# - import_tasks: letsencrypt.yml
+- name: "Nginx | Vhost {{ domain }}"
+  template:
+    src: server/vhost.j2
+    dest: "/etc/nginx/sites-enabled/{{ domain }}"
+- name: "Nginx | Restart"
+  service:
+    name: nginx
+    state: restarted

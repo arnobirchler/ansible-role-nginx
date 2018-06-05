@@ -3,7 +3,8 @@
 
   vars:
     gitlab_restart_handler_failed_when: false
-    file: "test"
+    domain: "test"
+    nginx_reverse: true
 
   pre_tasks:
     - name: Update apt cache.

@@ -1,7 +1,16 @@
 ---
 # tasks file for ansible-role-create-account 
-- name: "FILE | create a file"
-  file:
-    path: "./{{ file }}.txt"
-    state: touch
+- name: APT | Update
+  apt:
+    upgrade: dist
+    update_cache: yes
+- name: Nginx | Install
+  apt:
+    name: nginx
+    state: present
+- include_tasks: setup-reverse.yml
+  when: nginx_reverse == true
+- include_tasks: setup-server.yml
+  when: nginx_reverse == false
+
   
