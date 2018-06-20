@@ -28,5 +28,8 @@ script:
   # Run tests.
   - ${PWD}/tests/test.sh
 
+  - export ipaddr=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' $container_id)
+  curl -sSf http://$ipaddr
+
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
