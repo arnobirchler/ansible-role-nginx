@@ -12,7 +12,11 @@ No requierements needed
 Role Variables
 --------------
 
-No variables needed.
+```
+- reverse_proxy : configure nginx as a reverse proxy (true or false)
+- redirect_domain: redirect domain for the default host
+- domain: the domain to configure
+```
 
 Dependencies
 ------------

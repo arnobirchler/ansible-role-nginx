@@ -1,2 +1,6 @@
 ---
-# handlers file for ansible-role-create-account
+# handlers file for ansible-role-nginx
+- name: nginx reload
+  service:
+    name: nginx
+    state: reloaded

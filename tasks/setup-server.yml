@@ -1,3 +1,8 @@
+---
+- name: Nginx | Install
+  apt:
+    name: nginx
+    state: present
 - name: "Nginx | Remove default config"
   file:
     path: "/etc/nginx/nginx.conf"
@@ -8,22 +13,18 @@
     dest: "/etc/nginx/nginx.conf"
 - name: Nginx | Default vhost
   template:
-    src: server/default.j2
+    src: default.j2
     dest: "/etc/nginx/sites-enabled/default"
-- name: "Nginx | Pre Vhost {{ domain }}"
-  template:
-    src: server/pre-vhost.j2
-    dest: "/etc/nginx/sites-enabled/{{ domain }}"
-- name: "Nginx | Restart"
-  service:
-    name: nginx
-    state: restarted
-# - import_tasks: letsencrypt.yml
-- name: "Nginx | Vhost {{ domain }}"
-  template:
-    src: server/vhost.j2
-    dest: "/etc/nginx/sites-enabled/{{ domain }}"
-- name: "Nginx | Restart"
-  service:
-    name: nginx
-    state: restarted
+  when: redirect_domain is defined
+# - name: "Nginx | Pre Vhost {{ domain }}"
+#   template:
+#     src: pre-vhost.j2
+#     dest: "/etc/nginx/sites-enabled/{{ domain }}"
+#    notify: nginx reload
+
+#- import_tasks: letsencrypt.yml
+# - name: "Nginx | Vhost {{ domain }}"
+#   template:
+#     src: vhost.j2
+#     dest: "/etc/nginx/sites-enabled/{{ domain }}"
+#   notify: nginx reload

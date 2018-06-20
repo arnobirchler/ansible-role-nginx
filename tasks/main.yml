@@ -9,8 +9,8 @@
     name: nginx
     state: present
 - include_tasks: setup-reverse.yml
-  when: nginx_reverse == true
+  when: reverse_proxy == true
 - include_tasks: setup-server.yml
-  when: nginx_reverse == false
+  when: reverse_proxy == false
 
   
