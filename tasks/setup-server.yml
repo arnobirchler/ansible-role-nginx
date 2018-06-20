@@ -13,7 +13,7 @@
     dest: "/etc/nginx/nginx.conf"
 - name: Nginx | Default vhost
   template:
-    src: default.j2
+    src: server/default.j2
     dest: "/etc/nginx/sites-enabled/default"
   when: redirect_domain is defined
 # - name: "Nginx | Pre Vhost {{ domain }}"
